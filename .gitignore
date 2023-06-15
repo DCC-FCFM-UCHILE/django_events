@@ -1,10 +1,2 @@
 __pycache__
 .docker/data
-
-app/sso
-app/demo
-
-.gitpod/env.sh
-gitpod-tmp.py
-
-node_modules

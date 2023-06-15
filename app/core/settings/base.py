@@ -16,8 +16,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "sso.apps.SsoConfig",
-    "polls.apps.PollsConfig",
-    "cbvpolls.apps.CbvpollsConfig",
+    "events.apps.EventsConfig",
 ]
 
 MIDDLEWARE = [
@@ -87,12 +86,12 @@ USE_TZ = True
 DATETIME_FORMAT = "d/m/Y H:i:s"
 DATE_FORMAT = "d/m/Y"
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATIC_ROOT = "/static"
-STATICFILES_DIRS = ("staticfiles",)
+STATICFILES_DIRS = ("_staticfiles",)
 
 MEDIA_ROOT = get_env_variable("DJANGO_MEDIA_ROOT", "/media")
-MEDIA_URL = "media/"
+MEDIA_URL = "/media/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -112,3 +111,11 @@ LOGIN_URL = get_env_variable("DJANGO_LOGIN_URL")
 SSO_URL = get_env_variable("DJANGO_SSO_URL")
 SSO_APP = get_env_variable("DJANGO_SSO_APP")
 SSO_AUTH = get_env_variable("DJANGO_SSO_AUTH")
+
+# EVENTS
+MQTT_HOST = get_env_variable("DJANGO_MQTT_HOST")
+MQTT_PORT = int(get_env_variable("DJANGO_MQTT_PORT"))
+MQTT_USER = get_env_variable("DJANGO_MQTT_USER")
+MQTT_PASS = get_env_variable("DJANGO_MQTT_PASS")
+MQTT_TOPIC = "events"
+MQTT_ORIGIN = "django_utils"

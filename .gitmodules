@@ -1,3 +1,0 @@
-[submodule "django_sso"]
-	path = django_sso
-	url = https://github.com/DCC-FCFM-UCHILE/django_sso

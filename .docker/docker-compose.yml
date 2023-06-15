@@ -2,6 +2,7 @@ version: "3.9"
 
 services:
     postgresql:
+        container_name: postgres
         image: postgres:13.3
         expose:
             - 5432
@@ -11,14 +12,14 @@ services:
         environment: 
             POSTGRES_USER: desarrollo
             POSTGRES_PASSWORD: desarroll0
-            POSTGRES_DB: boilerplate
+            POSTGRES_DB: django_utils
         healthcheck:
-            test: ["CMD-SHELL", "pg_isready -U desarrollo -d boilerplate"]
+            test: ["CMD-SHELL", "pg_isready -U desarrollo -d django_utils"]
             interval: 10s
             timeout: 5s
             retries: 5
     django:
-        container_name: django_boilerplate
+        container_name: django_utils
         build: 
             context: ../
             dockerfile: .docker/app/Dockerfile.dev
@@ -26,12 +27,20 @@ services:
         restart: always
         volumes:
             - ../app/:/app/:rw
-            - ../app/_media/:/media/:rw
-            - ../app/staticfiles/:/static/:rw
-            - ../django_sso/app/sso/:/app/sso/:rw
         ports: 
             - 8000:8000
         env_file: ./app/.env
         depends_on:
             postgresql:
                 condition: service_healthy
+    mqtt:
+        image: eclipse-mosquitto:latest
+        container_name: mqtt
+        expose:
+            - 1883
+            - 8883
+            - 9001
+        volumes:
+            - ./mqtt/:/mosquitto/config
+            - ./data/mqtt/data/:/mosquitto/data
+            - ./data/mqtt/logs/:/mosquitto/logs
