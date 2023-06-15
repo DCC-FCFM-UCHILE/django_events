@@ -2,8 +2,6 @@
 
 _build:
 	docker-compose --project-name django_utils up -d --build --force-recreate --remove-orphans
-	make _migrate
-	docker exec django_utils make precommit
 	docker ps
 
 _admin:

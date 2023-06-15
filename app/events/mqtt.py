@@ -28,7 +28,7 @@ def get_mqtt_client() -> mqtt.Client:
             handler_event_signal.send(sender="MQTT", origin=origin, entity=entity, key=key, action=action)
             print(msg.topic + " " + str(msg.payload))
         except Exception:
-            print("MENSAJE INCONSISTENTE: "+str(msg.payload))
+            print("MENSAJE INCONSISTENTE: " + str(msg.payload))
 
     def on_publish(client, userdata, mid):
         print("- mensaje publicado con éxito.")

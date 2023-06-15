@@ -107,8 +107,8 @@ SERVER_EMAIL = get_env_variable("DJANGO_SERVER_EMAIL")
 BASE_URL = get_env_variable("DJANGO_BASE_URL")
 
 # DCC SSO
-LOGIN_URL = get_env_variable("DJANGO_LOGIN_URL")
-SSO_URL = get_env_variable("DJANGO_SSO_URL")
+LOGIN_URL = "sso_index"
+SSO_URL = "https://portal.dcc.uchile.cl"
 SSO_APP = get_env_variable("DJANGO_SSO_APP")
 SSO_AUTH = get_env_variable("DJANGO_SSO_AUTH")
 
