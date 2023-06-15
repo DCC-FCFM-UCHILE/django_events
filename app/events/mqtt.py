@@ -18,9 +18,17 @@ def get_mqtt_client() -> mqtt.Client:
 
     # recibe eventos de la cola y dispara handler_event_signal
     def handler_event_signal_fn(client, userdata, msg):
-        origin, entity, key, action, _ = str(msg.payload).split(":"), None, None
-        handler_event_signal.send(sender="MQTT", origin=origin, entity=entity, key=key, action=action)
-        print(msg.topic + " " + str(msg.payload))
+        try:
+            data = str(msg.payload).split(":")
+            origin = data[0]
+            entity = data[1]
+            key = data[2] if len(data) >= 3 else None
+            action = data[3] if len(data) == 4 else None
+
+            handler_event_signal.send(sender="MQTT", origin=origin, entity=entity, key=key, action=action)
+            print(msg.topic + " " + str(msg.payload))
+        except Exception:
+            print("MENSAJE INCONSISTENTE: "+str(msg.payload))
 
     def on_publish(client, userdata, mid):
         print("- mensaje publicado con éxito.")
