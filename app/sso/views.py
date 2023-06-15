@@ -67,7 +67,7 @@ def logout(request):
         log("logout usuario", ldata)
 
     custom_logout(request)
-    if settings.SSO_LOGOUT_URL:
+    if hasattr(settings, "SSO_LOGOUT_URL") and settings.SSO_LOGOUT_URL:
         return redirect(reverse(settings.SSO_LOGOUT_URL))
     return redirect("https://portal.dcc.uchile.cl")
 
