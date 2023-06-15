@@ -1,0 +1,20 @@
+FROM python:3.11-slim
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONFAULTHANDLER 1
+ENV PYTHONUNBUFFERED 1
+
+RUN apt-get update \
+    && apt-get -y dist-upgrade \
+    && apt-get -y install libpq-dev gcc build-essential zip graphviz graphviz-dev --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY app/ .
+COPY django_sso/app/sso/ sso/
+
+RUN pip install --upgrade pip \
+    && pip install -r _requirements/base.txt -r _requirements/develop.txt
+
+RUN pur -r _requirements/base.txt
+RUN pur -r _requirements/production.txt
