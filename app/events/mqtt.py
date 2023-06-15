@@ -11,27 +11,29 @@ emitter_event_signal = Signal()
 handler_event_signal = Signal()
 
 
+def __get_from_payload(payload):
+    data = ''.join(map(chr, payload))
+    try:
+        return {
+            "origin": data[0],
+            "entity": data[1],
+            "key": data[2] if len(data) >= 3 else None,
+            "action": data[3] if len(data) == 4 else None,
+        }
+    except Exception:
+        print("MQTT ERROR mensaje recibido: " + str(payload))
+        return {"origin": None, "entity": None, "key": None, "action": None}
+
 def get_mqtt_client() -> mqtt.Client:
     def on_connect(client, userdata, flags, rc):
-        print("MQTT Connected: " + str(rc))
         client.subscribe(settings.MQTT_TOPIC)
 
     # recibe eventos de la cola y dispara handler_event_signal
     def handler_event_signal_fn(client, userdata, msg):
-        try:
-            data = str(msg.payload).split(":")
-            origin = data[0]
-            entity = data[1]
-            key = data[2] if len(data) >= 3 else None
-            action = data[3] if len(data) == 4 else None
-
-            handler_event_signal.send(sender="MQTT", origin=origin, entity=entity, key=key, action=action)
-            print(msg.topic + " " + str(msg.payload))
-        except Exception:
-            print("MENSAJE INCONSISTENTE: " + str(msg.payload))
+        handler_event_signal.send(sender="MQTT", data=__get_from_payload(msg.payload))
 
     def on_publish(client, userdata, mid):
-        print("- mensaje publicado con éxito.")
+        print("MQTT: mensaje publicado con éxito.")
 
     client = mqtt.Client()
     client.on_publish = on_publish
