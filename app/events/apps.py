@@ -1,7 +1,9 @@
 import threading
 from django.apps import AppConfig
 
-from events.functions import mqtt_loop
+from events.functions import _mqtt_loop
+from .functions import _emitter_event_signal_fn
+from .signals import emitter_event_signal
 
 
 class EventsConfig(AppConfig):
@@ -9,7 +11,8 @@ class EventsConfig(AppConfig):
     name = "events"
 
     def ready(self):
-        mqtt_thread = threading.Thread(target=mqtt_loop)
-        # Para que el hilo se detenga cuando se detenga el programa principal
+        emitter_event_signal.connect(_emitter_event_signal_fn)
+
+        mqtt_thread = threading.Thread(target=_mqtt_loop)
         mqtt_thread.daemon = True
         mqtt_thread.start()
