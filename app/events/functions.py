@@ -26,23 +26,29 @@ def _get_from_payload(payload):
         return {"origin": None, "entity": None, "key": None, "action": None}
 
 
-def _get_mqtt_client() -> mqtt.Client:
+def _get_mqtt_client(receive=False) -> mqtt.Client:
+    client = mqtt.Client()
+    client.username_pw_set(settings.MQTT_USER, password=settings.MQTT_PASS)
+    client.connect(host=settings.MQTT_HOST, port=int(settings.MQTT_PORT))
+
     def on_connect(client, userdata, flags, rc):
         client.subscribe(settings.MQTT_TOPIC)
 
-    # recibe eventos de la cola y dispara handler_event_signal
-    def handler_event_signal_fn(client, userdata, msg):
-        handler_event_signal.send(sender="MQTT", data=_get_from_payload(msg.payload))
+    client.on_connect = on_connect
 
     def on_publish(client, userdata, mid):
         logger.info("MQTT: mensaje publicado con éxito.")
 
-    client = mqtt.Client()
     client.on_publish = on_publish
-    client.on_connect = on_connect
-    client.on_message = handler_event_signal_fn
-    client.username_pw_set(settings.MQTT_USER, password=settings.MQTT_PASS)
-    client.connect(host=settings.MQTT_HOST, port=int(settings.MQTT_PORT))
+
+    # recibe eventos de la cola y dispara handler_event_signal
+    if receive:
+
+        def handler_event_signal_fn(client, userdata, msg):
+            handler_event_signal.send(sender="MQTT", data=_get_from_payload(msg.payload))
+
+        client.on_message = handler_event_signal_fn
+
     return client
 
 
@@ -61,7 +67,7 @@ def _emitter_event_signal_fn(sender, **kwargs):
 
 # crea un loop de conexión a la cola
 def _mqtt_loop():
-    client = _get_mqtt_client()
+    client = _get_mqtt_client(receive=True)
     client.loop_forever()
 
 
