@@ -12,7 +12,7 @@ handler_event_signal = Signal()
 
 
 def __get_from_payload(payload):
-    data = ''.join(map(chr, payload))
+    data = "".join(map(chr, payload))
     try:
         return {
             "origin": data[0],
@@ -23,6 +23,7 @@ def __get_from_payload(payload):
     except Exception:
         print("MQTT ERROR mensaje recibido: " + str(payload))
         return {"origin": None, "entity": None, "key": None, "action": None}
+
 
 def get_mqtt_client() -> mqtt.Client:
     def on_connect(client, userdata, flags, rc):
