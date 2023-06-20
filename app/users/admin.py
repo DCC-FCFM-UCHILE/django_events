@@ -37,7 +37,7 @@ class CustomUserAdmin(admin.ModelAdmin):
     ]
 
     def foto_img_tag(self, obj):
-        return mark_safe(f'<img loading="lazy" src="{obj.foto_url()}" alt="{str(obj.alias)}" height="30px" />')
+        return mark_safe(f'<img loading="lazy" src="{obj.url_foto}" alt="{str(obj.alias)}" height="30px" />')
 
     foto_img_tag.short_description = "Foto"
     foto_img_tag.allow_tags = True

@@ -84,7 +84,7 @@ class Migration(migrations.Migration):
                 ),
                 ("url_foto", models.URLField(blank=True, max_length=250, null=True)),
                 ("alias", models.CharField(max_length=250)),
-                ("data", models.JSONField()),
+                ("data", models.JSONField(blank=True, null=True)),
                 (
                     "groups",
                     models.ManyToManyField(

@@ -112,9 +112,9 @@ def unauthorized(request):
 def get_user(username, secret):
     if "users.apps.UsersConfig" in settings.INSTALLED_APPS:
         from users.models import CustomUser as User
-    else: 
+    else:
         from django.contrib.auth.models import User
-    
+
     user = User.objects.filter(username=username).first()
     data = get_data(username, secret)
     if not user:
