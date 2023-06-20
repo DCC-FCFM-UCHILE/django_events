@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "sso.apps.SsoConfig",
     "events.apps.EventsConfig",
+    "users.apps.UsersConfig",
 ]
 
 MIDDLEWARE = [
@@ -119,3 +120,6 @@ MQTT_USER = get_env_variable("DJANGO_MQTT_USER")
 MQTT_PASS = get_env_variable("DJANGO_MQTT_PASS")
 MQTT_TOPIC = "events"
 MQTT_ORIGIN = "django_utils"
+
+# USERS
+AUTH_USER_MODEL = "users.CustomUser"

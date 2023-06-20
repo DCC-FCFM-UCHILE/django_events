@@ -1,6 +1,7 @@
 # base
 Django==4.2.2
 psycopg2==2.9.6
+django-json-widget==1.1.1
 
 # events
 paho-mqtt==1.6.1
