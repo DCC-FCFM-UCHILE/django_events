@@ -3,7 +3,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.contrib.auth.models import User
 from django.contrib.auth import login as custom_login
 from django.contrib.auth import logout as custom_logout
 from django.conf import settings
@@ -111,6 +110,11 @@ def unauthorized(request):
 
 # FUNCIONES
 def get_user(username, secret):
+    if "users.apps.UsersConfig" in settings.INSTALLED_APPS:
+        from users.models import CustomUser as User
+    else: 
+        from django.contrib.auth.models import User
+    
     user = User.objects.filter(username=username).first()
     data = get_data(username, secret)
     if not user:
