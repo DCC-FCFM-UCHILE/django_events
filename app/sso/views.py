@@ -112,8 +112,8 @@ def unauthorized(request):
 # FUNCIONES
 def get_user(username, secret):
     user = User.objects.filter(username=username).first()
+    data = get_data(username, secret)
     if not user:
-        data = get_data(username, secret)
         if data["valid"]:
             user = User.objects.create_user(
                 username=data["username"],
@@ -122,6 +122,12 @@ def get_user(username, secret):
                 last_name=f"{data['last_name']}",
                 is_active=settings.SSO_AUTH,
             )
+    if "users.apps.UsersConfig" in settings.INSTALLED_APPS:
+        user.alias = data["persona"]["alias"]
+        user.url_foto = data["persona"]["foto"]
+        user.data = data
+    user.email = data["persona"]["email"]
+    user.save()
     return user
 
 
