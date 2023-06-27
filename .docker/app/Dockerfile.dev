@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM python:3.11-slim-bookworm
 WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -14,6 +14,3 @@ COPY app/ .
 
 RUN pip install --upgrade pip \
     && pip install -r _requirements/base.txt -r _requirements/develop.txt
-
-RUN pur -r _requirements/base.txt
-RUN pur -r _requirements/production.txt
