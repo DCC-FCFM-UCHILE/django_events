@@ -7,7 +7,6 @@ from django.conf import settings
 import paho.mqtt.client as mqtt
 
 from .signals import handler_event_signal
-from .models import Event
 
 
 logger = logging.getLogger("django")
@@ -57,27 +56,3 @@ def _get_mqtt_client(receive=False) -> mqtt.Client:
 def _mqtt_loop():
     client = _get_mqtt_client(receive=True)
     client.loop_forever()
-
-
-def emitt_events():
-    events = Event.objects.all()
-    if events:
-        client = _get_mqtt_client()
-
-        entities = {}
-        for e in events:
-            if e.entity not in entities:
-                entities[e.entity] = {}
-            if e.action not in entities[e.entity]:
-                entities[e.entity][e.action] = []
-            if e.key:
-                entities[e.entity][e.action].append(e.key)
-
-        for entity, actions in entities.items():
-            for action, keys in actions.items():
-                client.publish(
-                    settings.MQTT_TOPIC,
-                    f"{settings.MQTT_ORIGIN}:{entity}:{'|'.join(keys)}:{action}" if keys else f"{settings.MQTT_ORIGIN}:{entity}",
-                )
-        client.disconnect()
-        events.delete()
