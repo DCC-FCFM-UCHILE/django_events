@@ -1,6 +1,9 @@
 # events/models.py
 
 from django.db import models
+from django.conf import settings
+
+from .functions import _get_mqtt_client
 
 
 class Event(models.Model):
@@ -16,3 +19,27 @@ class Event(models.Model):
 
     def __str__(self):
         return f"{self.entity}:{self.key}:{self.action}" if self.key else f"{self.entity}:{self.action}"
+
+    @staticmethod
+    def emitt():
+        events = Event.objects.filter()
+        if events:
+            client = _get_mqtt_client()
+
+            entities = {}
+            for e in events:
+                if e.entity not in entities:
+                    entities[e.entity] = {}
+                if e.action not in entities[e.entity]:
+                    entities[e.entity][e.action] = []
+                if e.key:
+                    entities[e.entity][e.action].append(e.key)
+
+            for entity, actions in entities.items():
+                for action, keys in actions.items():
+                    client.publish(
+                        settings.MQTT_TOPIC,
+                        f"{settings.MQTT_ORIGIN}:{entity}:{'|'.join(keys)}:{action}" if keys else f"{settings.MQTT_ORIGIN}:{entity}",
+                    )
+            client.disconnect()
+            events.delete()
