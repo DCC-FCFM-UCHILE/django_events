@@ -22,7 +22,7 @@ class Event(models.Model):
 
     @staticmethod
     def emitt():
-        events = Event.objects.filter()
+        events = Event.objects.all()
         if events:
             client = _get_mqtt_client()
 
