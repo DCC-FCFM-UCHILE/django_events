@@ -15,3 +15,9 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = "users.CustomUser"
 ```
+
+
+## Otros
+
+- https://testdriven.io/blog/django-custom-user-model/
+- https://testdriven.io/blog/django-custom-user-model-migration/
