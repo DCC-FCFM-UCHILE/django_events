@@ -1,7 +1,7 @@
 import threading
 from django.apps import AppConfig
 
-from events.functions import _mqtt_loop
+from .functions import _mqtt_loop
 
 
 class EventsConfig(AppConfig):
