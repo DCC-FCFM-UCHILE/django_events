@@ -119,19 +119,20 @@ def get_user(username, secret):
     data = get_data(username, secret)
     if not user:
         if data["valid"]:
-            user = User.objects.create_user(
+            user = User.objects.update_or_create(
                 username=data["username"],
-                email=data["email"],
-                first_name=f"{data['first_name']}",
-                last_name=f"{data['last_name']}",
-                is_active=settings.SSO_AUTH,
+                defaults={
+                    "email": data["persona"]["email"] if data["persona"] and "email" in data["persona"] else data["email"],
+                    "first_name": f"{data['first_name']}",
+                    "last_name": f"{data['last_name']}",
+                    "is_active": settings.SSO_AUTH,
+                },
             )
     if "users.apps.UsersConfig" in settings.INSTALLED_APPS:
         user.alias = data["persona"]["alias"]
         user.url_foto = data["persona"]["foto"]
         user.data = data
-    user.email = data["persona"]["email"]
-    user.save()
+        user.save()
     return user
 
 
