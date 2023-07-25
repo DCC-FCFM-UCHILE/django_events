@@ -129,8 +129,11 @@ def get_user(username, secret):
                 },
             )
     if "users.apps.UsersConfig" in settings.INSTALLED_APPS:
-        user.alias = data["persona"]["alias"]
-        user.url_foto = data["persona"]["foto"]
+        if "persona" in data:
+            if "alias" in data["persona"]:
+                user.alias = data["persona"]["alias"]
+            if "foto" in data["persona"]:
+                user.url_foto = data["persona"]["foto"]
         user.data = data
         user.save()
     return user
