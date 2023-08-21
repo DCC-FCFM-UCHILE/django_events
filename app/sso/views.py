@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib.auth import login as custom_login
 from django.contrib.auth import logout as custom_logout
+from django.contrib.auth import get_user_model
 from django.conf import settings
 
 from urllib.parse import urlencode
@@ -129,6 +130,8 @@ def get_user(username, secret):
                 },
             )
     if "users.apps.UsersConfig" in settings.INSTALLED_APPS:
+        User = get_user_model()
+        user = User.objects.filter(username=username).first()
         if "persona" in data:
             if "alias" in data["persona"]:
                 user.alias = data["persona"]["alias"]
