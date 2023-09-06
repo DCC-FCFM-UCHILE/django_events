@@ -6,17 +6,15 @@ from core.settings.base import *
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "api.apps.dcc.uchile.cl",
-    "api.test.dcc.uchile.cl",
-    "api.dev.dcc.uchile.cl",
-    "pad_feriados:8000",
+    "apps.dcc.uchile.cl",
+    "test.dcc.uchile.cl",
+    "dev.dcc.uchile.cl",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://api.apps.dcc.uchile.cl",
-    "https://api.test.dcc.uchile.cl",
-    "https://api.dev.dcc.uchile.cl",
-    "http://pad_feriados:8000",
+    "https://apps.dcc.uchile.cl",
+    "https://test.dcc.uchile.cl",
+    "https://dev.dcc.uchile.cl",
 ]
 
 ADMINS = [
