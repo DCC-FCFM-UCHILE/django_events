@@ -1,5 +1,3 @@
-# core/functions.py
-
 import os
 
 from django.core.exceptions import ImproperlyConfigured

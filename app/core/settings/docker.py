@@ -1,5 +1,3 @@
-# core/settings/docker.py
-
 from core.settings.base import *
 
 DEBUG = True

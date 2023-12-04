@@ -1,5 +1,3 @@
-# mufasa/management/commands/etl_mufasa.py
-
 from django.core.management.base import BaseCommand
 
 

@@ -1,4 +1,3 @@
-# core/settings/base.py
 from pathlib import Path
 
 from core.functions import get_env_variable

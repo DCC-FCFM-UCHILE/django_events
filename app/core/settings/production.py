@@ -1,5 +1,3 @@
-# core/settings/production.py
-
 from core.settings.base import *
 
 
