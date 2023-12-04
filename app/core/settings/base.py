@@ -18,6 +18,8 @@ INSTALLED_APPS = [
     "sso.apps.SsoConfig",
     "events.apps.EventsConfig",
     "django_json_widget",
+    "hijack",
+    "hijack.contrib.admin",
     "users.apps.UsersConfig",
 ]
 
@@ -29,6 +31,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "hijack.middleware.HijackUserMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -124,3 +127,4 @@ MQTT_ORIGIN = "django_utils"
 
 # USERS
 AUTH_USER_MODEL = "users.CustomUser"
+HIJACK_LOGIN_REDIRECT_URL = "admin:index"
