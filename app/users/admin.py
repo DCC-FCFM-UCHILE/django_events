@@ -67,9 +67,12 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
     )
+    readonly_fields = ("last_login", "date_joined", "alias", "url_foto", "data",)
 
     def foto_img_tag(self, obj):
-        return mark_safe(f'<img loading="lazy" src="{obj.url_foto}" alt="{str(obj.alias)}" height="30px" />')
+        if obj.url_foto:
+            return mark_safe(f'<img loading="lazy" src="{obj.url_foto}" alt="{str(obj.alias)}" height="30px" />')
+        return mark_safe('<img loading="lazy" src="https://dcc.uchile.cl/static/images/personas/avatar.png" height="30px" />')
 
     foto_img_tag.short_description = "Foto"
     foto_img_tag.allow_tags = True

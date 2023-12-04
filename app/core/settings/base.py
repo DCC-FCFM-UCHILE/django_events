@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "sso.apps.SsoConfig",
     "events.apps.EventsConfig",
+    "django_json_widget",
     "users.apps.UsersConfig",
 ]
 
