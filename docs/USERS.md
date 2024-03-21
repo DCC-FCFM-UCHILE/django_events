@@ -1,6 +1,6 @@
 # Users
 
-Extiende el model de User de Django para incorporar data proveniente desde el Portal al modelo de User de Django.
+Extiende el model de User de Django para incorporar datos provenientes desde el Portal al modelo de User de Django.
 
 requierements:
 
@@ -8,12 +8,11 @@ requierements:
 - django-json-widget
 
 ```python
-# settings.py (proyecto)
+# core/settings/base.py (o archivo equivalente)
 ...
 INSTALLED_APPS = [
 ...
-    "hijack",
-    "django_json_widget",
+    "django_json_widget", "hijack", "hijack.contrib.admin",
     "sso.apps.UsersConfig",
 ...
 ]
@@ -25,18 +24,13 @@ MIDDLEWARE = [
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"
-HIJACK_LOGIN_REDIRECT_URL = "admin:index"
 ```
 
-
 ```python
-# urls.py
-from django.urls import include, path
-
-
+# core/urls.py (o archivo equivalente)
 urlpatterns = [
     path('hijack/', include('hijack.urls')),
-    # …
+...
 ]
 ```
 

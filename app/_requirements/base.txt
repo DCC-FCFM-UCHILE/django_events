@@ -1,8 +1,8 @@
 # base
-Django==4.2.8
-psycopg==3.1.14
+Django==5.0.3
+psycopg==3.1.18
 django-json-widget==1.1.1
-django-hijack==3.4.3
+django-hijack==3.4.5
 
 # events
-paho-mqtt==1.6.1
+paho-mqtt==2.0.0
