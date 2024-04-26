@@ -13,6 +13,16 @@ en: .docker\app\Dockerfile, hay que copiar a los users desde django_utils
 COPY --chown=instalar:instalar django_utils/app/users/ users/
 ```
 
+
+.docker\docker-compose.yml
+
+```
+volumes:
+    - ...
+    - ../django_utils/app/sso/:/home/instalar/app/sso/:rw
+    - ../django_utils/app/users/:/home/instalar/app/users/:rw
+```
+
 requierements:
 
 - django-hijack
