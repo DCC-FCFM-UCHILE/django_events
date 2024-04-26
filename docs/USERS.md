@@ -9,7 +9,7 @@ from users.models import CustomUser as User
 en: .docker\app\Dockerfile, hay que copiar a los users desde django_utils
 
 ``` sh
-... django_utils/app/sso/ sso/
+... app/sso/ sso/
 COPY --chown=instalar:instalar django_utils/app/users/ users/
 ```
 
