@@ -101,7 +101,7 @@ def unauthorized(request):
         <div class="alert alert-danger" role="alert">
           Se ha autenticado correctamente pero no está autorizado para utilizar esta App.<br />
           Contacte al Área de Desarrollo de Aplicaciones
-          (<a href="mailto:desarrollo@dcc.uchile.cl">desarrollo@dcc.uchile.cl</a>) para solicitar acceso.
+          (<a href="mailto:ati@dcc.uchile.cl">ati@dcc.uchile.cl</a>) para solicitar acceso.
         </div>
     </center>
 </div>

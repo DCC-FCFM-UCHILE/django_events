@@ -15,7 +15,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 ADMINS = [
-    ("Área de Desarrollo de Software", "desarrollo@dcc.uchile.cl"),
+    ("Área de Desarrollo de Software", "ati@dcc.uchile.cl"),
 ]
 
 LOGGING = {

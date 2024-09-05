@@ -109,20 +109,5 @@ SERVER_EMAIL = get_env_variable("DJANGO_SERVER_EMAIL")
 
 BASE_URL = get_env_variable("DJANGO_BASE_URL")
 
-# DCC SSO
-LOGIN_URL = "sso_index"
-SSO_URL = "https://portal.dcc.uchile.cl"
-SSO_APP = get_env_variable("DJANGO_SSO_APP")
-SSO_AUTH = get_env_variable("DJANGO_SSO_AUTH")
-
-# EVENTS
-MQTT_HOST = get_env_variable("DJANGO_MQTT_HOST")
-MQTT_PORT = int(get_env_variable("DJANGO_MQTT_PORT"))
-MQTT_USER = get_env_variable("DJANGO_MQTT_USER")
-MQTT_PASS = get_env_variable("DJANGO_MQTT_PASS")
-MQTT_TOPIC = "events"
-MQTT_ORIGIN = "django_utils"
-
 # USERS
 AUTH_USER_MODEL = "users.CustomUser"
-HIJACK_LOGIN_REDIRECT_URL = "admin:index"
