@@ -1,6 +1,10 @@
 black
 flake8
 pur
+isort
+debugpy
+bandit
 pylint
+pytest
 coverage
-bs4
+pygraphviz
