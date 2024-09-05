@@ -1,11 +1,9 @@
 import logging
 
+import paho.mqtt.client as mqtt
 from django.conf import settings
 
-import paho.mqtt.client as mqtt
-
 from .signals import handler_event_signal
-
 
 logger = logging.getLogger("django")
 

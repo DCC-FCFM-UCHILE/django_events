@@ -1,19 +1,16 @@
-from hijack.contrib.admin import HijackUserAdminMixin
-from django_json_widget.widgets import JSONEditorWidget
-
-from django.contrib import admin
-from django.utils.html import mark_safe
-from django.contrib.auth.models import Group
-from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
-from django.db import models
-from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.admin import UserAdmin
 from django.conf import settings
+from django.contrib import admin
+from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import Group
+from django.db import models
 from django.shortcuts import resolve_url
-
+from django.utils.html import mark_safe
+from django.utils.translation import gettext_lazy as _
+from django_json_widget.widgets import JSONEditorWidget
+from hijack.contrib.admin import HijackUserAdminMixin
 
 from .models import CustomUser
-
 
 admin.site.unregister(Group)
 
