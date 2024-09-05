@@ -22,7 +22,8 @@ services:
         container_name: django_utils
         build: 
             context: ../
-            dockerfile: .docker/app/Dockerfile.dev
+            dockerfile: .docker/app/Dockerfile
+            target: develop
         command: python manage.py runserver 0.0.0.0:8000 --settings=core.settings.docker
         restart: always
         volumes:

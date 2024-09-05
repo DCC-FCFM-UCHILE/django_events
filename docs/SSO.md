@@ -1,10 +1,8 @@
 # Single-Sign On
 
-Esta app provee autenticación utilizando cuenta Mi Uchile mediante el uso de Upasaporte del Centro Ucampus.
+Esta app provee autenticación utilizando cuenta MiUchile mediante el uso de Upasaporte del Centro Ucampus (que a su vez, utiliza autenticación con el OpenLDAP de la VTI).
 
 El app **SSO** (`_app/sso_`) en este proyecto provee un segundo mecanismo de autenticación para su proyecto. Funciona exponiendo el endpoint `https://<url||ip>/sso/login`, el cual es utilizado para comunicarse con el [**Portal DCC**](https://apps.dcc.uchile.cl/portal).
-
-Este proyecto es un ejemplo de cómo integrar la autenticación del **`portal`** en un proyecto basado en Framework Django.
 
 El flujo de autenticación para las aplicaciones que utilicen esta integración es el siguiente:
 
@@ -47,7 +45,7 @@ Aplicación->>Usuario: despliega aplicación
 
 ### Habilitación
 
-Para integrar esta App en proyecto debe solicitar al Área de Tecnologías de Información del DCC <**desarrollo@dcc.uchile.cl**> la creación de su app indicando:
+Para integrar esta App en proyecto debe solicitar al Área de Tecnologías de Información del DCC <**ati@dcc.uchile.cl**> la creación de su app indicando:
 
 ```dotenv
 Nombre: (nombre de la app)
@@ -61,15 +59,16 @@ Ambiente: (desarrollo, produccion, localhost)
 ### Instalación
 
 ```python
-# .env (proyecto)
+# .docker/app/.env (o archivo equivalente)
 ...
+# la app "develop" redirecciona a localhost:8000 por defecto
 DJANGO_SSO_APP=develop
 DJANGO_SSO_AUTH=True
 ...
 ```
 
 ```python
-# settings.py (proyecto)
+# core/settings/base.py (o archivo equivalente)
 ...
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -80,11 +79,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "sso.apps.SsoConfig",
 ]
-...
-LOGIN_URL=sso:index
-SSO_URL=https://portal.dcc.uchile.cl/
-SSO_APP=...
-SSO_AUTH=...
 ...
 ```
 

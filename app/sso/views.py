@@ -47,9 +47,7 @@ def login(request):
         error("error al inicializar el usuario", ldata)
         return HttpResponseRedirect(reverse("sso:index"))
 
-    ldata["username"] = user.username
     if not user.is_active:
-        ldata["user"] = user.username
         log("usuario encontrado pero no activo", ldata)
         return HttpResponseRedirect(reverse("sso:unauthorized"))
 
@@ -98,12 +96,12 @@ def unauthorized(request):
 <body>
 <div class="wrapper">
     <center>
-        <img class="logo" src="https://w3.dcc.uchile.cl/static/images/logo.svg">
+        <img class="logo" src="https://dcc.uchile.cl/static/images/logo.svg">
         <br />
         <div class="alert alert-danger" role="alert">
           Se ha autenticado correctamente pero no está autorizado para utilizar esta App.<br />
           Contacte al Área de Desarrollo de Aplicaciones
-          (<a href="mailto:desarrollo@dcc.uchile.cl">desarrollo@dcc.uchile.cl</a>) para solicitar acceso.
+          (<a href="mailto:ati@dcc.uchile.cl">desarrollo@dcc.uchile.cl</a>) para solicitar acceso.
         </div>
     </center>
 </div>
@@ -118,40 +116,41 @@ def unauthorized(request):
 
 # FUNCIONES
 def get_user(username, secret):
-    if "users.apps.UsersConfig" in settings.INSTALLED_APPS:
-        from users.models import CustomUser as User
-    else:
-        from django.contrib.auth.models import User
-
-    user = User.objects.filter(username=username).first()
     data = get_data(username, secret)
-    if not user:
-        if data["valid"]:
-            user = User.objects.update_or_create(
-                username=data["username"],
-                defaults={
-                    "email": data["persona"]["email"] if data["persona"] and "email" in data["persona"] else data["email"],
-                    "first_name": f"{data['first_name']}",
-                    "last_name": f"{data['last_name']}",
-                    "is_active": settings.SSO_AUTH,
-                },
-            )
-    if "users.apps.UsersConfig" in settings.INSTALLED_APPS:
+    user = None
+
+    if "valid" in data and data["valid"]:
         User = get_user_model()
-        user = User.objects.filter(username=username).first()
-        if "persona" in data:
+
+        user, created = User.objects.update_or_create(
+            username=data["username"],
+            defaults={
+                "email": data["persona"]["email"] if data["persona"] and "email" in data["persona"] else data["email"],
+                "first_name": f"{data['first_name']}",
+                "last_name": f"{data['last_name']}",
+            },
+        )
+
+        if created:
+            user.is_active = settings.SSO_AUTH
+            user.save()
+
+        # si usa User custom, se extiende la data del mismo
+        if "users.apps.UsersConfig" in settings.INSTALLED_APPS and "persona" in data:
             if "alias" in data["persona"]:
                 user.alias = data["persona"]["alias"]
             if "foto" in data["persona"]:
                 user.url_foto = data["persona"]["foto"]
-        user.data = data
-        user.save()
+            if "email" in data["persona"]:
+                user.email = data["persona"]["email"]
+            user.data = data
+            user.save()
+
     return user
 
 
 def get_data(username, secret):
     data = {"valid": False}
-
     params = {"app": settings.SSO_APP, "secret": secret, "username": username}
     url = f"{settings.SSO_URL}/is_valid?{urlencode(params)}"
 
