@@ -1,7 +1,7 @@
 # makefile
 
 _build:
-	docker-compose --project-name django_utils up -d --build --force-recreate --remove-orphans
+	docker compose --project-name django_utils up -d --build --force-recreate --remove-orphans
 	docker ps
 
 _admin:

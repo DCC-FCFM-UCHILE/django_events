@@ -1,4 +1,5 @@
 import threading
+
 from django.apps import AppConfig
 
 from .functions import _mqtt_loop

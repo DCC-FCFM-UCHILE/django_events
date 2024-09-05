@@ -1,8 +1,22 @@
 # makefile
 
 precommit:
-	black --line-length=140 .
-	flake8 --ignore E501 --exclude 'core/settings/*' .
+	black . --config pyproject.yml
+	isort . --resolve-all-configs
+	flake8 . --config .flake8
+
+bandit:
+	bandit -r .
+
+rate:
+	pylint *
+
+deadcode:
+	vulture . --min-confidence 100
+
+healthcheck:
+	make rate
+	make deadcode
 
 migrations:
 	python manage.py makemigrations

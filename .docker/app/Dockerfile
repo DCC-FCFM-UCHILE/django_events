@@ -1,32 +1,21 @@
-FROM python:3.12.2-bookworm as production
+FROM python:3.12-bookworm AS production
 
-ARG UID
-ARG GID
-
-RUN groupadd -r instalar
-RUN useradd -m instalar -u ${UID} -g ${GID} -s /sbin/nologin
-RUN mkdir -p /static /logs /media /backup /home/instalar/app
-RUN chown -R instalar:instalar /static /logs /media /backup /home/instalar/app
-
-USER instalar
-WORKDIR /home/instalar/app
-
+RUN mkdir -p /static /logs /media /backup /app
+WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONFAULTHANDLER 1
 ENV PYTHONUNBUFFERED 1
-ENV PATH="/home/instalar/.local/bin:${PATH}"
-
-COPY --chown=instalar:instalar app/ .
-
+COPY app/ .
 RUN pip install --upgrade pip
 RUN pip install -r _requirements/base.txt -r _requirements/production.txt
+RUN adduser -u 5678 --disabled-password --gecos "" instalar && chown -R instalar /static /logs /media /backup /app
+USER instalar
 
-
-FROM production as develop
+FROM production AS develop
 
 USER root
 RUN apt-get update
-RUN apt-get -y install --no-install-recommends graphviz graphviz-dev 
-
-USER instalar
+RUN apt-get -y install --no-install-recommends graphviz graphviz-dev
 RUN pip install -r _requirements/develop.txt
+ENV PYDEVD_DISABLE_FILE_VALIDATION=1
+# USER instalar

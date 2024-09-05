@@ -1,16 +1,16 @@
+import json
+from urllib.parse import urlencode
+from urllib.request import urlopen
+
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.auth import login as custom_login
+from django.contrib.auth import logout as custom_logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.contrib.auth import login as custom_login
-from django.contrib.auth import logout as custom_logout
-from django.contrib.auth import get_user_model
-from django.conf import settings
 
-from urllib.parse import urlencode
-from urllib.request import urlopen
-import json
-
-from sso.utils import log, error
+from sso.utils import error, log
 
 
 def index(request):

@@ -24,9 +24,6 @@ services:
             context: ../
             dockerfile: .docker/app/Dockerfile
             target: develop
-            args:
-                UID: 1001
-                GID: 100
         command: python manage.py runserver 0.0.0.0:8000 --settings=core.settings.docker
         restart: always
         volumes:

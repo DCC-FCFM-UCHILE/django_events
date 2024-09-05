@@ -33,7 +33,9 @@ requierements:
 ...
 INSTALLED_APPS = [
 ...
-    "django_json_widget", "hijack", "hijack.contrib.admin",
+    "django_json_widget", 
+    "hijack", 
+    "hijack.contrib.admin",
     "sso.apps.UsersConfig",
 ...
 ]

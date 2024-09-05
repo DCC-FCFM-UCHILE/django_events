@@ -2,7 +2,6 @@ from pathlib import Path
 
 from core.functions import get_env_variable
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = get_env_variable("DJANGO_SECRET_KEY")

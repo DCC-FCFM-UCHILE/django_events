@@ -1,8 +1,7 @@
-from typing import Dict, Any
-
-import logging
 import datetime
 import json
+import logging
+from typing import Any, Dict
 
 
 def _logger(msg: str, ldata: Dict[str, Any] = None) -> None:
