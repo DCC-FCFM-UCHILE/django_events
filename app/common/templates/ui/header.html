@@ -1,0 +1,5 @@
+<div class="fs-{{ h|add:2 }} text-center text-lg-start fw-light">
+    {% if icono %}<i class="{{ icono }} pe-2"></i>{% endif %}
+    {{ texto }}
+    {% for text, color in badge_list.items %}<span class="badge bg-{{ color }} mb-1">{{ text }}</span>{% endfor %}
+</div>

@@ -1,0 +1,6 @@
+{% load crispy_forms_tags %}
+<form method="POST" enctype='multipart/form-data'>
+    {% csrf_token %}
+    {{ form|crispy }}
+    {% include 'ui/form_buttons.html' with guardar=True cancelar_url=cancelar_url eliminar_url=eliminar_url %}
+</form>

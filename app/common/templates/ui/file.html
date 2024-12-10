@@ -1,0 +1,7 @@
+<div class="text-nowrap">
+    <a href="{{ url }}" target="_blank">
+        {% if mimetype == "application/pdf" %}<i class="bi bi-file-pdf text-danger"></i>{% endif %}
+        {{ basename }}
+    </a>
+    <span class="fst-italic text-secondary small">({{ size|filesizeformat }})</span>
+</div>

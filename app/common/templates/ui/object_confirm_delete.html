@@ -1,0 +1,12 @@
+{% load crispy_forms_tags %}
+<form method="POST">
+    {% csrf_token %}
+    <p>
+        {% if not texto %}
+            Está seguro que quiere eliminar el/la {{ object.verbose_name }} "{{ object }}"?
+        {% else %}
+            {{ texto }}
+        {% endif %}
+    </p>
+    {% include 'ui/form_buttons.html' with eliminar=True cancelar=True %}
+</form>

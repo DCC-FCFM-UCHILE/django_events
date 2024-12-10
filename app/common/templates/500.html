@@ -1,0 +1,15 @@
+{% extends "error.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <h1 class="text-center">
+        Ups! algo salio mal <small>Error 500</small>
+    </h1>
+    <img width="auto"
+         class="rounded mx-auto d-block mt-5"
+         src="{% static 'images/error/500.png' %}"
+         alt="Error 500"
+         height="320px">
+{% endblock content %}

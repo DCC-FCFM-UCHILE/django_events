@@ -1,0 +1,15 @@
+{% extends "error.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <h1 class="text-center">
+        Request Entity Too Large <small>Error 413</small>
+    </h1>
+    <img width="auto"
+         class="rounded mx-auto d-block mt-5"
+         src="{% static 'images/error/413.png' %}"
+         alt="Error 413"
+         height="320px">
+{% endblock content %}

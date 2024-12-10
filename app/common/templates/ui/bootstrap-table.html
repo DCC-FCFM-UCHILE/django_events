@@ -1,0 +1,62 @@
+<script>
+    function bt() {
+        let observer = new MutationObserver(function(mutationsList) { applyCustomCSS(); });;
+        let table = $('#{{ id|default:"table" }}');
+    
+        // función para actualizar CSS en la tabla
+        let isApplyingCustomCSS;
+        if (typeof isApplyingCustomCSS === 'undefined') { let isApplyingCustomCSS = false; }
+        function applyCustomCSS() {
+            if (isApplyingCustomCSS) return;
+            isApplyingCustomCSS = true;
+            observer.disconnect();
+            table[0].querySelectorAll('[data-cell-class]').forEach( (element) => {
+                element.getAttribute('data-cell-class').split(' ').forEach(function(cls) { element.classList.add(cls); });
+            });
+            table[0].querySelectorAll('i[data-toggle="true"]').forEach( function(element) {
+                element.className = 'bi pe-2';
+                if (element.closest('tr').classList.contains('expanded')) element.classList.add('bi-eye-slash');
+                else if (element.closest('tr').classList.contains('collapsed')) element.classList.add('bi-eye');
+            });
+            table[0].querySelectorAll('tr').forEach( function(element) { observer.observe(element, { attributes: true, childList: false, subtree: false }) });
+            observer.observe(table[0], { attributes: true, childList: false, subtree: false });
+            isApplyingCustomCSS = false;
+        }
+    
+        table.bootstrapTable({
+            search: {{ search|yesno:"true,false" }},
+            sortable: {{ sortable|yesno:"true,false" }},
+            sortReset: {{ sortable|yesno:"true,false" }},
+            showToggle : {{ toggle|yesno:"true,false" }},
+            stickyHeader: {{ sticky|yesno:"true,false" }},
+            groupBy: {{ groupBy|yesno:"true,false" }},
+            groupByField: [{{ groupByFields|safe }}],
+            groupByToggle: {{ groupBy|yesno:"true,false" }},
+            buttonsClass: "secondary-secondary",
+            classes: "table table-sm table-hover table-striped bt-table",
+            onSort: function(name, order) {
+                observer.disconnect();
+                const groupByFildsSortShow = [{{ groupByFildsSortShow|safe }}];
+                if (groupByFildsSortShow.length == 0) return;
+                const options = table.bootstrapTable('getOptions');
+                if (options.sortName) {
+                    for (let column of groupByFildsSortShow) table.bootstrapTable('showColumn', column);
+                    table.bootstrapTable('refreshOptions', { groupBy: false });
+                } else {
+                    for (let column of groupByFildsSortShow) table.bootstrapTable('hideColumn', column);
+                    table.bootstrapTable('refreshOptions', { groupBy: true });
+                }
+                applyCustomCSS();
+            }
+        });
+    
+        setInterval(() => {
+            if (isApplyingCustomCSS) return;
+            var applyCSS = false;
+            table[0].querySelectorAll('i[data-toggle="true"]').forEach((element) => { if (!element.classList.length) applyCSS = true; return; });
+            if (!applyCSS) { table[0].querySelectorAll('[data-cell-class]').forEach( (element) => { if (!element.classList.length) applyCSS = true; return; }); }
+            if (applyCSS) applyCustomCSS();
+        }, 100);
+    }
+    bt();
+</script>
