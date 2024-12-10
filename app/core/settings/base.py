@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from core.functions import get_env_variable
+from common.functions import get_env_variable
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 

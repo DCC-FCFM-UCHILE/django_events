@@ -7,7 +7,7 @@ class SsoConfig(AppConfig):
 
     def ready(self):
         from django.conf import settings
-        from core.functions import get_env_variable
+        from common.functions import get_env_variable
 
         settings.LOGIN_URL = "sso:index"
         settings.SSO_URL = "https://portal.dcc.uchile.cl"
