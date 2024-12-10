@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     "hijack",
     "hijack.contrib.admin",
     "users.apps.UsersConfig",
+    "common.apps.CommonConfig",
 ]
 
 MIDDLEWARE = [
