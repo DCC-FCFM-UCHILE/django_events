@@ -31,3 +31,28 @@ class CoreModuleViewMixin(CoreMessageMixin, View):
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["icons"] = {
+            # common
+            "faq": "bi bi-question-octagon-fill",
+            "historial": "bi bi-clock-history",
+            # varios
+            "pdf": "bi bi-file-pdf-fill",
+            "listar": "bi bi-list-ul",
+            # navegacion
+            "volver": "bi bi-arrow-left-square-fill",
+            # forms
+            "agregar": "bi bi-plus-square-fill",
+            "editar": "bi bi-pencil-fill",
+            "guardar": "bi bi-floppy-fill",
+            "cancelar": "bi bi-x-square-fill",
+            "eliminar": "bi bi-trash-fill",
+            "upload": "bi bi-cloud-upload-fill",
+            # alertas
+            "warning": "bi-exclamation-circle-fill",
+            "success": "bi-check-circle-fill",
+            "info": "bi-info-circle-fill",
+            "danger": "bi-x-circle-fill",
+        }

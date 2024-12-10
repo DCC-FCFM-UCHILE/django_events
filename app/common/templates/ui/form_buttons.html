@@ -1,7 +1,7 @@
 <div class="d-none d-lg-flex justify-content-end">
     {% if asignar %}
         <a class="btn btn-success" href="?asignar=True">
-            <i class="{{ iconos.solicitar }} pe-2"></i>Asignar</a>
+            <i class="{{ icons.solicitar }} pe-2"></i>Asignar</a>
     {% endif %}
     {% if guardar %}
         {% if form_id %}
@@ -13,22 +13,22 @@
                    href="#"
                    onclick="this.closest('form').submit(); return false;">
                 {% endif %}
-                <i class="{{ iconos.guardar }} pe-2"></i>Guardar
+                <i class="{{ icons.guardar }} pe-2"></i>Guardar
             </a>
         {% endif %}
         {% if eliminar %}
             <a class="btn btn-danger"
                href="#"
                onclick="this.closest('form').submit(); return false;">
-                <i class="{{ iconos.eliminar }} pe-2"></i>Eliminar</a>
+                <i class="{{ icons.eliminar }} pe-2"></i>Eliminar</a>
         {% endif %}
         {% if eliminar_url %}
             <a class="btn btn-danger ms-2" href="{{ eliminar_url }}">
-                <i class="{{ iconos.eliminar }} pe-2"></i>Eliminar</a>
+                <i class="{{ icons.eliminar }} pe-2"></i>Eliminar</a>
         {% endif %}
         {% if cancelar_url %}
             <a class="btn btn-secondary ms-2" href="{{ cancelar_url }}">
-                <i class="{{ iconos.cancelar }} pe-2"></i>Cancelar</a>
+                <i class="{{ icons.cancelar }} pe-2"></i>Cancelar</a>
         {% endif %}
     </div>
     <div class="d-block d-lg-none">
@@ -36,7 +36,7 @@
             <a class="w-100 mb-2 btn btn-primary"
                href="#"
                onclick="this.closest('form').submit(); return false;">
-                <i class="{{ iconos.guardar }} pe-2"></i>Guardar</a>
+                <i class="{{ icons.guardar }} pe-2"></i>Guardar</a>
         {% endif %}
         {% if eliminar %}
             {% if form_id %}
@@ -48,15 +48,15 @@
                        href="#"
                        onclick="this.closest('form').submit(); return false;">
                     {% endif %}
-                    <i class="{{ iconos.eliminar }} pe-2"></i>Eliminar
+                    <i class="{{ icons.eliminar }} pe-2"></i>Eliminar
                 </a>
             {% endif %}
             {% if eliminar_url and object.id %}
                 <a class="w-100 mb-2 btn btn-danger" href="{{ eliminar_url }}">
-                    <i class="{{ iconos.eliminar }} pe-2"></i>Eliminar</a>
+                    <i class="{{ icons.eliminar }} pe-2"></i>Eliminar</a>
             {% endif %}
             {% if cancelar_url %}
                 <a class="w-100 mb-2 btn btn-secondary" href="{{ cancelar_url }}">
-                    <i class="{{ iconos.cancelar }} pe-2"></i>Cancelar</a>
+                    <i class="{{ icons.cancelar }} pe-2"></i>Cancelar</a>
             {% endif %}
         </div>
