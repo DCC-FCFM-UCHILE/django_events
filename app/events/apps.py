@@ -11,6 +11,7 @@ class EventsConfig(AppConfig):
 
     def ready(self):
         from django.conf import settings
+
         from core.functions import get_env_variable
 
         settings.MQTT_HOST = get_env_variable("DJANGO_MQTT_HOST")
