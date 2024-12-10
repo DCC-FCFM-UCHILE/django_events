@@ -35,7 +35,7 @@ class CustomUserAdmin(HijackUserAdminMixin, UserAdmin):
         "alias",
         "email",
         "foto_img_tag",
-        # "hijack_button",
+        "hijack_button",
     ]
 
     fieldsets = (
