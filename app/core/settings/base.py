@@ -13,13 +13,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "common.apps.CommonConfig",
     "sso.apps.SsoConfig",
     "events.apps.EventsConfig",
     "django_json_widget",
     "hijack",
     "hijack.contrib.admin",
     "users.apps.UsersConfig",
-    "common.apps.CommonConfig",
 ]
 
 MIDDLEWARE = [
