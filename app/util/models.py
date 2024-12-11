@@ -1,3 +1,5 @@
+from datetime import date, datetime
+
 from django.db import models
 from tinymce.models import HTMLField
 
@@ -9,7 +11,7 @@ class Texto(BaseModel):
     texto = HTMLField()
 
     def __str__(self):
-        return f"{self.modulo.identificador}.{self.identificador}"
+        return self.identificador
 
 
 class Parametro(BaseModel):
@@ -19,9 +21,7 @@ class Parametro(BaseModel):
 
     class Meta:
         verbose_name_plural = "Parámetros"
-        ordering = (
-            "nombre",
-        )
+        ordering = ("nombre",)
 
     class Tipo(models.TextChoices):
         TEXTO = "texto", "Texto"
@@ -33,5 +33,19 @@ class Parametro(BaseModel):
 
     tipo = models.CharField(max_length=50, choices=Tipo.choices, default=Tipo.TEXTO, verbose_name="Tipo")
 
+    @property
+    def get_valor(self):
+        if self.tipo == self.Tipo.NUMERO:
+            return int(self.valor)
+        if self.tipo == self.Tipo.DECIMAL:
+            return float(self.valor)
+        if self.tipo == self.Tipo.FECHA:
+            return date.strptime(self.valor, "%Y-%m-%d %H:%M:%S")
+        if self.tipo == self.Tipo.FECHA_HORA:
+            return datetime.strptime(self.valor, "%Y-%m-%d %H:%M:%S")
+        if self.tipo == self.Tipo.BOOLEANO:
+            return self.valor.lower() in ("true", "1")
+        return self.valor
+
     def __str__(self):
-        return f"{self.modulo}| {self.identificador}: {self.valor}"
+        return f"{self.identificador}: {self.valor}"

@@ -47,11 +47,15 @@ class ParametroForm(forms.ModelForm):
                 self.instance.valor = datetime.strptime(f"{y}-{m}-{d} {hms}", "%Y-%m-%d %H:%M:%S")
             else:
                 self.instance.valor = datetime.strptime(self.instance.valor, "%Y-%m-%d %H:%M:%S")
+        elif self.instance.tipo == Parametro.Tipo.FECHA:
+            y, m, dhms = self.instance.valor.split("-")
+            d, hms = dhms.split(" ")
+            self.instance.valor = datetime.strptime(f"{y}-{m}-{d}", "%Y-%m-%d")
 
 
 class ParametroFormSet(forms.BaseModelFormSet):
     @staticmethod
-    def create(data=None, modulo=None):
+    def create(data=None, identificadores=None):
         formset = forms.modelformset_factory(
             Parametro,
             form=ParametroForm,
@@ -59,7 +63,7 @@ class ParametroFormSet(forms.BaseModelFormSet):
             extra=0,
             can_delete=False,
         )
-        qs = Parametro.objects.filter(modulo__identificador=modulo) if modulo else Parametro.objects.none()
+        qs = Parametro.objects.none() if not identificadores else Parametro.objects.filter(identificador__in=identificadores)
         return formset(data=data, queryset=qs)
 
     @property

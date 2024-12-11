@@ -12,9 +12,7 @@ class TextoAdmin(BaseModelAdmin):
         "fecha_creacion",
         "fecha_modificacion",
     )
-    ordering = (
-        "identificador",
-    )
+    ordering = ("identificador",)
 
 
 @admin.register(Parametro)
@@ -26,6 +24,4 @@ class ParametroAdmin(BaseModelAdmin):
         "tipo",
         "fecha_modificacion",
     )
-    ordering = (
-        "identificador",
-    )
+    ordering = ("identificador",)
