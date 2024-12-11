@@ -1,0 +1,53 @@
+<div class="btn-responsive-container">
+    <div class="btn-responsive-group">
+        {% if back %}
+            <a href="{{ back }}"
+               class="btn-responsive {% if outline %}btn-outline-secondary{% else %}btn-secondary-secondary{% endif %}">
+                <i class="{{ icons.volver }}{% if texto %} pe-2{% endif %}"></i>
+                {% if texto %}Volver{% endif %}
+            </a>
+        {% endif %}
+        {% if list %}
+            <a href="{{ list }}"
+               class="btn-responsive {% if outline %}btn-outline-secondary {% else %}btn-secondary{% endif %}">
+                <i class="{{ icons.listar }}{% if texto %} pe-2{% endif %}"></i>
+                {% if texto %}Listar{% endif %}
+            </a>
+        {% endif %}
+        {% if plantilla %}
+            <a href="{{ plantilla }}"
+               class="btn-responsive {% if outline %}btn-outline-primary{% else %}btn-primary{% endif %}">
+                <i class="{{ icons.plantilla }}{% if texto %} pe-2{% endif %}"></i>
+                {% if texto %}Usar Plantilla{% endif %}
+            </a>
+        {% endif %}
+        {% if add %}
+            <a href="{{ add }}"
+               class="btn-responsive {% if outline %}btn-outline-primary{% else %}btn-primary{% endif %}">
+                <i class="{{ icons.agregar }}{% if texto %} pe-2{% endif %}"></i>
+                {% if texto %}Agregar{% endif %}
+            </a>
+        {% endif %}
+        {% if create %}
+            <a href="{{ create }}"
+               class="btn-responsive {% if outline %}btn-outline-primary{% else %}btn-primary{% endif %}">
+                <i class="{{ icons.agregar }}{% if texto %} pe-2{% endif %}"></i>
+                {% if texto %}Crear{% endif %}
+            </a>
+        {% endif %}
+        {% if update %}
+            <a href="{{ update }}"
+               class="btn-responsive {% if outline %}btn-outline-primary{% else %}btn-primary{% endif %}">
+                <i class="{{ icons.editar }}{% if texto %} pe-2{% endif %}"></i>
+                {% if texto %}Modificar{% endif %}
+            </a>
+        {% endif %}
+        {% if delete %}
+            <a href="{{ delete }}"
+               class="btn-responsive {% if outline %}btn-outline-danger{% else %}btn-danger{% endif %}">
+                <i class="{{ icons.eliminar }}{% if texto %} pe-2{% endif %}"></i>
+                {% if texto %}Eliminar{% endif %}
+            </a>
+        {% endif %}
+    </div>
+</div>
