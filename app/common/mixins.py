@@ -56,3 +56,4 @@ class CoreModuleViewMixin(CoreMessageMixin, View):
             "info": "bi-info-circle-fill",
             "danger": "bi-x-circle-fill",
         }
+        return context
